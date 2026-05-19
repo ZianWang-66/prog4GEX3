@@ -112,7 +112,7 @@
     }
 
     .summary-title {
-      color: #198754; /* bootstrap success */
+      color: #198754; 
       font-weight: 700;
       font-size: 1.25rem;
     }
@@ -256,8 +256,8 @@
                     <input type="month" v-model="form.expiry" class="form-control mb-2">
                     <span class="text-danger">{{ errors.expiry }}</span>
 
-                    <input type="password" v-model="form.cvv" class="form-control" placeholder="CVV">
-                    <span class="text-danger">{{ errors.cvv }}</span>
+                    <input type="password" v-model="form.cvc" class="form-control" placeholder="CVC">
+                    <span class="text-danger">{{ errors.cvc }}</span>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
                 <p class="mb-1"><strong>Name on Card:</strong> {{ form.cardholder }}</p>
                 <p class="mb-1"><strong>Card Number:</strong> {{ maskCardNumber(form.cardNumber) }}</p>
                 <p class="mb-1"><strong>Expiration Date:</strong> {{ form.expiry }}</p>
-                <p class="mb-0"><strong>CVC:</strong> {{ cvcProvided(form.cvv) }}</p>
+                <p class="mb-0"><strong>CVC:</strong> {{ cvcProvided(form.cvc) }}</p>
               </div>
             </div>
           </div>
@@ -324,7 +324,7 @@
     
     createApp({
       setup() {
-        // 响应式数据
+
         const form = reactive({
           fullName: '',
           dob: '',
@@ -335,7 +335,7 @@
           cardholder: '',
           cardNumber: '',
           expiry: '',
-          cvv: ''
+          cvc: ''
         });
         
         const errors = reactive({});
@@ -355,7 +355,7 @@
           'Luxury Ghibli Resort'
         ];
         
-        // 计算属性
+
         const selectedPlacesNames = computed(() => {
           return selectedPlaces.value.map(place => place.name);
         });
@@ -369,7 +369,7 @@
           }, null, 2);
         });
         
-        // 生命周期钩子
+
         onMounted(() => {
           loadPlaces();
         });
@@ -412,7 +412,7 @@
           clearErrors();
           let isValid = true;
           
-          // 验证必填字段
+
           if (!form.fullName.trim()) {
             errors.fullName = 'Full name is required';
             isValid = false;
@@ -463,8 +463,8 @@
             isValid = false;
           }
           
-          if (!form.cvv || form.cvv.length !== 3) {
-            errors.cvv = 'CVV must be 3 digits';
+          if (!form.cvc || form.cvc.length !== 3) {
+            errors.cvc = 'CVC must be 3 digits';
             isValid = false;
           }
           
@@ -495,8 +495,7 @@
           generalError.value = '';
           showSummary.value = true;
           showRawData.value = false;
-          
-          // 滚动到结果区域
+
           setTimeout(() => {
             const summaryElement = document.querySelector('.alert-success');
             if (summaryElement) {
@@ -512,12 +511,12 @@
           return '**** **** **** ' + last4;
         };
 
-        const cvcProvided = (cvv) => {
-          if (!cvv) return 'Not Provided';
+        const cvcProvided = (cvc) => {
+          if (!cvc) return 'Not Provided';
           return 'Provided';
         };
         
-        // 返回模板中可访问的数据和方法
+
         return {
           form,
           errors,
