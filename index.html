@@ -137,24 +137,30 @@
             </h2>
             <div id="personal" class="accordion-collapse collapse" data-bs-parent="#gexAccordion">
                 <div class="accordion-body">
-                    <div class="mb-3">
-                        <input v-model="form.fullName" class="form-control" placeholder="Full Name">
-                        <span class="text-danger">{{ errors.fullName }}</span>
-                    </div>
-
-                    <div class="mb-3">
-                        <input type="date" v-model="form.dob" class="form-control">
-                        <span class="text-danger">{{ errors.dob }}</span>
-                    </div>
-
-                    <div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" value="Male" v-model="form.gender">
-                            <label class="form-check-label">Male</label>
+                    <div class="row g-2 mb-3">
+                        <div class="col-12 col-md-6">
+                            <label for="fullName">Full Name</label>
+                            <input v-model="form.fullName" class="form-control" placeholder="Full Name">
+                            <span class="text-danger">{{ errors.fullName }}</span>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" value="Female" v-model="form.gender">
-                            <label class="form-check-label">Female</label>
+                        <div class="col-12 col-md-6">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" v-model="form.dob" class="form-control">
+                            <span class="text-danger">{{ errors.dob }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="d-block">Gender</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="Male" v-model="form.gender" id="genderMale">
+                                <label class="form-check-label" for="genderMale">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" value="Female" v-model="form.gender" id="genderFemale">
+                                <label class="form-check-label" for="genderFemale">Female</label>
+                            </div>
                         </div>
                         <span class="text-danger">{{ errors.gender }}</span>
                     </div>
@@ -170,7 +176,9 @@
                 </button>
             </h2>
             <div id="ghibli" class="accordion-collapse collapse" data-bs-parent="#gexAccordion">
+              
                 <div class="accordion-body">
+                  <p style="color: gray;">Click a place to select it.Click it again to deselect it.</p>
                     <div v-if="isLoadingPlaces">Loading...</div>
                     <div v-else>
                         <div class="row g-3">
@@ -204,11 +212,18 @@
             </h2>
             <div id="visitors" class="accordion-collapse collapse" data-bs-parent="#gexAccordion">
                 <div class="accordion-body">
-                    <input type="number" min="1" v-model="form.totalVisitors" class="form-control mb-2" placeholder="Total Visitors">
-                    <span class="text-danger">{{ errors.totalVisitors }}</span>
-
-                    <input type="number" min="0" v-model="form.children" class="form-control" placeholder="Number of Children">
-                    <span class="text-danger">{{ errors.children }}</span>
+                    <div class="row g-2">
+                        <div class="col-12 col-md-6">
+                            <label for="totalVisitors" class="form-label">Total Visitors</label>
+                            <input id="totalVisitors" type="number" min="1" v-model="form.totalVisitors" class="form-control" placeholder="Total Visitors">
+                            <span class="text-danger">{{ errors.totalVisitors }}</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="children" class="form-label">Number of Children</label>
+                            <input id="children" type="number" min="0" v-model="form.children" class="form-control" placeholder="Number of Children">
+                            <span class="text-danger">{{ errors.children }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,6 +237,7 @@
             </h2>
             <div id="accommodation" class="accordion-collapse collapse" data-bs-parent="#gexAccordion">
                 <div class="accordion-body">
+                  <label for="accommodation">Select Accommodation</label>
                     <select v-model="form.accommodation" class="form-select">
                         <option disabled value="">Select</option>
                         <option v-for="opt in accommodationOptions" :key="opt">{{ opt }}</option>
@@ -240,24 +256,35 @@
             </h2>
             <div id="payment" class="accordion-collapse collapse" data-bs-parent="#gexAccordion">
                 <div class="accordion-body">
-                    <input v-model="form.cardholder" class="form-control mb-2" placeholder="Cardholder Name">
-                    <span class="text-danger">{{ errors.cardholder }}</span>
-
-                    <input v-model="form.cardNumber" class="form-control mb-2" placeholder="Card Number">
-                    <span class="text-danger">{{ errors.cardNumber }}</span>
-
-                    <input type="month" v-model="form.expiry" class="form-control mb-2">
-                    <span class="text-danger">{{ errors.expiry }}</span>
-
-                    <input type="password" v-model="form.cvc" class="form-control" placeholder="CVC">
-                    <span class="text-danger">{{ errors.cvc }}</span>
+                    <div class="row g-2">
+                        <div class="col-12 col-md-6">
+                            <label for="cardholder">Name on Card</label>
+                            <input v-model="form.cardholder" class="form-control" placeholder="Cardholder Name">
+                            <span class="text-danger">{{ errors.cardholder }}</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="cardNumber">Card Number</label>
+                            <input v-model="form.cardNumber" class="form-control" placeholder="Card Number">
+                            <span class="text-danger">{{ errors.cardNumber }}</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="expiry">Expiration Date</label>
+                            <input type="month" v-model="form.expiry" class="form-control">
+                            <span class="text-danger">{{ errors.expiry }}</span>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="cvc">CVC</label>
+                            <input type="password" v-model="form.cvc" class="form-control" placeholder="CVC">
+                            <span class="text-danger">{{ errors.cvc }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
       </div>
 
-      <!-- Generate Button (centered, green) -->
+
       <div class="text-center mt-3">
         <button class="btn btn-success px-4" @click="generateItinerary">Generate Itinerary</button>
       </div>
@@ -367,7 +394,6 @@
           loadPlaces();
         });
         
-        // 方法
         const loadPlaces = async () => {
           try {
             const res = await fetch('ghibli_park.json');
